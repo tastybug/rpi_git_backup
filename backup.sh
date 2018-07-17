@@ -1,56 +1,44 @@
 #!/bin/sh
-set -e
 # Usage: TODO
 
-# configuration file
+set -e
+
 conf_file="./conf.txt"
+backup_root_dir="./backup"
+base_dir="$(pwd)"
 
-# backup target folder
-backup_dir="./backup"
-
-prepare_backup_dir()
-{
-	if [ ! -d "$1" ]; then
-		mkdir $1
-		echo "Created backup target directory $1"
+prepare_run() {
+	base_dir=$1
+	conf_file=$2
+	if [ ! -d "$base_dir" ]; then
+		mkdir $base_dir
+		echo "Created backup root directory $1"
 	fi
-}
-
-assert_conf() {
-	if [ ! -f "$1" ]; then
-		echo "Configuration $1 not found, exiting."
+	if [ ! -f "$conf_file" ]; then
+		echo "Configuration $conf_file not found, exiting."
 		exit 1
 	fi
 }
 iterate_backups() {
-	backup_root=$1
-	conf=$2
+	backup_root_dir=$1
+	conf_file=$2
 	while IFS='|' read -r mirror_dir repo_url; do
-		perform_mirror "$backup_root/$mirror_dir" $repo_url
+		perform_mirror "$backup_root_dir/$mirror_dir" $repo_url
 	done <"$conf_file"
 }
 perform_mirror() {
+	base_dir="$(pwd)"
 	mirror_dir=$1
 	repo_url=$2
-	echo "$repo_url to $mirror_dir"
 	if [ -d $mirror_dir ]; then
-		update_mirror $mirror_dir $repo_url
+		echo "Update mirror $mirror_dir"
+		cd $mirror_dir
+		git remote update --prune
+		cd $base_dir
 	else
-		initial_clone $mirror_dir $repo_url
+		echo "Initial mirror into $mirror_dir"
+		git clone --mirror $repo_url $mirror_dir
 	fi 
 }
-initial_clone() {
-	mirror_dir=$1
-	repo_url=$2
-	echo "init $mirror_dir"
-	mkdir $mirror_dir
-}
-update_mirror() {
-	mirror_dir=$1
-	repo_url=$2
-	echo "update $mirror_dir"
-}
-
-prepare_backup_dir $backup_dir
-assert_conf $conf_file
-iterate_backups $backup_dir $conf_file
+prepare_run $backup_root_dir $conf_file
+iterate_backups $backup_root_dir $conf_file
