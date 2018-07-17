@@ -1,2 +1,3 @@
-./backup
-./backup.sh.swp
+.backup.sh.swp
+.idea/
+backup/
