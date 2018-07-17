@@ -8,7 +8,7 @@ What to mention here: CRON, scripts, ssh key, size requirements
 
 ### Setup
 
-What to mention here: Basic RPI setup, CRON, how to setup ssh keys
+What to mention here: Basic RPI setup, which packages to install, CRON, how to setup ssh keys
 
 ### Limitations
 
