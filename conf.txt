@@ -1,2 +1,3 @@
 rpi_git_backup|git@github.com:tastybug/rpi_git_backup.git
 timetracker|git@github.com:tastybug/timetracker.git
+bewerbungskram|git@bitbucket.org:tastybug/bewerbungskram.git
