@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 # Usage: TODO
 set -e
 
 ### lifecycle helper functions
 prepare_run() {
-	base_dir=$1
+	backup_root_dir=$1
 	conf_file=$2
-	if [ ! -d "${base_dir}" ]; then
-		mkdir ${base_dir}
+	if [ ! -d "${backup_root_dir}" ]; then
+		mkdir ${backup_root_dir}
 		echo "Created backup root directory $1"
 	fi
 	if [ ! -f "$conf_file" ]; then
@@ -56,10 +56,10 @@ perform_mirror() {
 }
 
 ### global config
-conf_file="./conf.txt"
-sshkeys_file="./sshkeys.list"
-backup_root_dir="./backup"
-base_dir="$(pwd)"
+base_dir=$(dirname "$0")
+conf_file="${base_dir}/conf.txt"
+sshkeys_file="${base_dir}/sshkeys.list"
+backup_root_dir="${base_dir}/backup"
 
 ### main procedural block
 prepare_run ${backup_root_dir} ${conf_file}

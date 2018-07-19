@@ -41,7 +41,7 @@ the mirrored private repos, e.g.
 ## Run it
 
 #### Manually
-The backup is done using a simple script, `backup.sh`. You can run it either via `sh backup.sh` or directly 
+The backup is done using a simple script, `backup.sh`. You can run it either via `bash backup.sh` or directly 
 `./backup.sh` once you made it executable (`chmod a+x backup.sh`). The script creates a backup root folder `./backup`
 and will start to mirror all repositories mentioned in `conf.txt`.
 
