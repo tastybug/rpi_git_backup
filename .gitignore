@@ -1,5 +1,4 @@
-.backup.sh.swp
 .idea/
 backup/
-conf.txt
+repos.list
 sshkeys.list

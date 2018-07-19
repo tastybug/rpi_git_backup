@@ -14,14 +14,14 @@ Make sure you have a Raspberry PI with sufficient space. Pretty much any type of
 
 #### What is to be mirrored?
 Figure out which repositories you want mirrored and consider whether its public or private.
-1) If its a public repo, copy the http clone URL.
+1) If its a public repo, have the http clone URL ready.
 1) For private repos there needs to be a ssh key available to the script, see below for details. Have the key and 
 the ssh URL of your repo ready.
 
 #### Setup the mirroring script
 Clone this repository into your RPI using a system user that will do the mirroring later on. Create a file named 
-`conf.txt`; for each git repository that you want to mirror, add a line as such: `folder_name|git_repo_url`. The first
-argument will be the folder that the mirrored repository (2nd argument) will be mirrored into: `./backup/$FOLDER_NAME`.
+`repos.list`; for each git repository that you want to mirror, add a line as such: `folder_name|git_repo_url`. The first
+argument will be the folder that the mirrored repository (2nd argument) will be mirrored into: `backup/$FOLDER_NAME`.
 
 #### Got private repos? 
 For private repos it's recommended to use the [deploy keys feature on Github](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
@@ -43,7 +43,7 @@ the mirrored private repos, e.g.
 #### Manually
 The backup is done using a simple script, `backup.sh`. You can run it either via `bash backup.sh` or directly 
 `./backup.sh` once you made it executable (`chmod a+x backup.sh`). The script creates a backup root folder `./backup`
-and will start to mirror all repositories mentioned in `conf.txt`.
+and will start to mirror all repositories mentioned in `repos.list`.
 
 #### Periodically
 You'll want to run the mirroring on a regular base, maybe nightly or once a week. Be nice and do not run it more often
@@ -58,4 +58,3 @@ morning would look like this:
 ## Limitations
 
 * bad observability / no notification mechanism
-* current working directory for backup script is assumed to be `.`
