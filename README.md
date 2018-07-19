@@ -52,7 +52,7 @@ Periodic runs can be achieved with [cron](https://help.ubuntu.com/community/Cron
 morning would look like this:
 ```
 # m h dom mon dow command
-0 4 * * * cd /home/backupuser/rpi_git_mirror && /home/backupuser/rpi_git_mirror/backup.sh
+0 4 * * * /home/backupuser/rpi_git_mirror/backup.sh
 ```
 
 ## Limitations
