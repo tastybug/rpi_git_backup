@@ -48,7 +48,7 @@ perform_mirror() {
 		echo "Update mirror $mirror_dir"
 		cd ${mirror_dir}
 		git remote update --prune
-		cd $../..
+		cd ../..
 	else
 		echo "Initial mirror into $mirror_dir"
 		git clone --mirror ${repo_url} ${mirror_dir}
