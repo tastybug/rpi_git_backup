@@ -18,12 +18,12 @@ prepare_run() {
 setup_ssh_agent() {
 	sshkey_list_file=$1
 	if [ -f "${sshkey_list_file}" ]; then
-	    echo "Setup ssh-agent"
-	    eval `ssh-agent -s`
+	    	echo "Setup ssh-agent"
+	    	eval `ssh-agent -s`
 		while IFS='|' read -r sshkey_path; do
-		    echo "Adding ssh key ${sshkey_path}"
-            ssh-add ${sshkey_path}
-        done <"${sshkey_list_file}"
+		    	echo "Adding ssh key ${sshkey_path}"
+            		ssh-add ${sshkey_path}
+		done <"${sshkey_list_file}"
 	fi
 }
 teardown_ssh_agent() {
@@ -41,14 +41,14 @@ iterate_backups() {
 	done <"${repo_list_file}"
 }
 perform_mirror() {
-    backup_root_dir=$1
+	backup_root_dir=$1
 	mirror_dir=$2
 	repo_url=$3
 	if [ -d ${mirror_dir} ]; then
 		echo "Update mirror $mirror_dir"
 		cd ${mirror_dir}
 		git remote update --prune
-		cd ${backup_root_dir}
+		cd $../..
 	else
 		echo "Initial mirror into $mirror_dir"
 		git clone --mirror ${repo_url} ${mirror_dir}
